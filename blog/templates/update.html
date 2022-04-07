@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}Lion Blog{% endblock %}
+
+{% block header %}
+<header class = "masthead"
+        style = "background-image: url({% static 'assets/img/post-bg.jpg' %})">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <h1>Lion's Blog</h1>
+          <span class="subheading">自由気ままな🦁</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock header%}
+ 
+{% block contents %}
+<form action='' method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="container px-lg-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-10">
+        <a href="{% url 'blog:create' %}" class="btn btn-outline-success btn-rounded rounded-pill" data-mdb-ripple-color="dark">新規作成</a>
+        <h2>編集フォーム</h2>
+        <hr>   
+        <div class="card mb-3 formpost">
+          <table class="profile_table mb-4">
+            <tbody>
+              <tr>
+                <th class="formpost">画像</th>
+                <td class="data">{{ form.image }}</td>
+              </tr>
+            </tbody>
+          </table>
+            <div class="card-body">
+              <label>タイトル</label>
+                <h4 class="card-title rounded-pill">{% render_field form.title class="form-control" %}</h4>
+                <label>カテゴリ</label>
+                <span class="small text-muted">{% render_field form.category class="form-control" %}</span><br>
+                <label>本文</label>
+                <p class="card-text">{% render_field form.content class="form-control" %}</p>
+                <p class="card-text pt-md-4"><small class="text-muted">{{object.posted_at}}に投稿</small></p>
+                <input type="submit" class="btn btn-outline-info btn-rounded rounded-pill" data-mdb-ripple-color="dark" value="更新する">
+                <a href="{% url 'blog:delete' object.pk %}" class="btn btn-outline-warning btn-rounded rounded-pill" data-mdb-ripple-color="dark">削除する</a>
+                <a href="{% url 'blog:index' %}" type="button" class="btn btn-outline-success btn-rounded rounded-pill" data-mdb-ripple-color="dark">記事一覧に戻る</a>
+            </div>
+        </div>        
+    </div>
+  </div>
+  <hr class="my-4" />
+</form>
+{% endblock contents %}
+

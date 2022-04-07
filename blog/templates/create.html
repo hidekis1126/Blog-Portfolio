@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}Lion Blog{% endblock %}
+
+{% block header %}
+<header class = "masthead"
+        style = "background-image: url({% static 'assets/img/post-bg.jpg' %})">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <h1>Lion's Blog</h1>
+          <span class="subheading">自由気ままな🦁</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock header%}
+
+{% block contents %}
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-10">
+        <div class="my-4">
+        <h2>新規投稿</h2>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="formpost">
+        {{ form.image }}
+        </div>
+        <div class="formpost">
+        {% render_field form.title class="form-control" placeholder="タイトルを入力" %}
+        </div>
+        <div class="formpost">
+        {% render_field form.category class="form-control" placeholder="カテゴリを入力" %}
+        </div>
+        <div class="formpost">
+        {% render_field form.content class="form-control" placeholder="本文を入力" %}
+        </div>
+        <br>
+        <button class="btn btn-outline-success btn-rounded rounded-pill" data-mdb-ripple-color="dark" type="submit">投稿する</button>
+        </form>
+      </div>
+    </div>
+</div>
+{% endblock contents %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Lion Blog{% endblock %}
+
+
+{% block header %}
+
+<header class="masthead"
+        style="background-image: url({% static 'assets/img/home-bg.jpg' %})">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <h1>Lion's Blog</h1>
+          <span class="subheading">自由気ままな🦁</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}
+  
+{% block contents %}
+<form action='' method="POST">{% csrf_token %}
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-10">
+        <a href="{% url 'blog:create' %}" class="btn btn-outline-success btn-rounded rounded-pill" data-mdb-ripple-color="dark">新規作成</a>
+        <hr> 
+        <div class="card mb-3">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h4 class="card-title">{{object.title}}</h4><span class="small text-muted"> ~ {{ object.category }} ~</span>
+            <p class="card-text">{{object.content}}</p>
+            <p class="card-text pt-md-4"><small class="text-muted">{{object.posted_at}}に投稿</small></p>
+            <p>本当に削除しますか？</p>
+            <input type="submit" class="btn btn-outline-danger btn-rounded rounded-pill" data-mdb-ripple-color="dark" value="削除決定します">
+            <a href="{% url 'blog:index' %}" type="button" class="btn btn-outline-primary btn-rounded rounded-pill" data-mdb-ripple-color="dark">削除せず記事一覧に戻る</a>
+            <a href="{% url 'blog:update' object.pk %}" type="button" class="btn btn-outline-info btn-rounded rounded-pill" data-mdb-ripple-color="dark">削除せず編集する</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="my-4"/>
+</form>  
+{% endblock %}
+
+
+
+
